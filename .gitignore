@@ -1,0 +1,16 @@
+# 🕵️‍♂️ Professional NLP Hardware/Data Filter
+# This file ensures we only share code and logic, not heavy binaries.
+
+# 🧠 Exclude Compiled Models (High Weight)
+models/
+
+# 🥗 Exclude Heavy Datasets (exceed GitHub's 100MB limit)
+dataset/*.csv
+
+# 🧪 Python Environment Artifacts
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# 🍏 System Metadata
+.DS_Store

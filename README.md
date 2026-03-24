@@ -1,39 +1,38 @@
-![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
+# 🧠 Project Memory & Live Sync
+This file serves as the local "Mirror" of the Engram persistent memory for the `nlp-challenge` project. It ensures every model and script uses consistent paths and logic.
 
-# PROJECT | Natural Language Processing Challenge
+## 📍 Model & Data Locations
+- **Raw Data**: `project-nlp-challenge/dataset/data.csv`
+- **Validation Data**: `project-nlp-challenge/dataset/validation_data.csv`
+- **Cleaned Data Export**: `project-nlp-challenge/dataset/cleaned_data.csv`
+- **Saved Models**: `project-nlp-challenge/models/`
+- **Saved Vectorizers**: `project-nlp-challenge/models/vectorizer.joblib`, `models/word2vec_model.joblib`
 
-## Introduction
+## 🔄 Live Engram Sync (Last updated: 2026-03-24)
+- **Project ID**: `Project 2` (Local Context) / `nlp-challenge` (Memory Context)
+- **Status**: Phase 2 Complete (Dual Matrix Benchmarked)
+- **Constraint**: Binary Classification (0=Fake, 1=Real).
+- **Environment**: `conda activate ironhack` (Python 3.10.16)
 
-Learning how to process text is a skill required for Data Scientists/AI Engineers. 
+## 🛠 Active Technical Decisions
+1. **The Representation Matrix**: Transitioned from single baseline to **TF-IDF vs Word2Vec** comparison.
+2. **The "Fair Judge" Model**: Using **Logistic Regression** across both representations to isolate feature performance.
+3. **Dimensionality Reduction**: Including **PCA** for visual storytelling of article clusters.
+4. **Branding Constraint**: Strictly use technical nomenclature (TF-IDF/Word2Vec) in all notebooks and documentation.
+5. **Strict Output Requirement**: `validation_results.csv` must strictly maintain the 5-column schema.
+6. **The Vectorizer Dictionary (The Dictionary Logic)**: The `vectorizer.joblib` must be treated as a mandatory ruleset. We cannot predict without it because it defines the column-to-word translation.
+7. **The Drive Sync Constraint**: Project must be uploaded to Google Drive path `/Project 2/project-nlp-challenge/` for Colab notebooks to access `models/vectorizer.joblib`.
 
-In this project, you will put these skills into practice to identify whether a news headline is real or fake news.
+## 💾 Latest Engram Entries
+- **Topic Key**: `decision/phase-2-matrix-comparison-methodology-decisions` (Matrix Architecture)
+- **Topic Key**: `decision/phase-2-sync-requirement-vectorizer-logic` (Sync & Dictionary Logic)
+- **Observation ID**: Captured on 2026-03-24. 
+- **Content**: Finalized Matrix comparison, dictionary importance, and sync constraints.
 
-## Project Overview
+---
 
-In the file `dataset/data.csv`, you will find a dataset containing news articles with the following columns:
-
-- **`label`**: 0 if the news is fake, 1 if the news is real.
-- **`title`**: The headline of the news article.
-- **`text`**: The full content of the article.
-- **`subject`**: The category or topic of the news.
-- **`date`**: The publication date of the article.
-
-Your goal is to build a classifier that is able to distinguish between the two.
-
-Once you have a classifier built, then use it to predict the labels for `dataset/validation_data.csv`. Generate a new file
-where the label `2` has been replaced by `0` (fake) or `1` (real) according to your model. Please respect the original file format, 
-do not include extra columns, and respect the column separator. 
-
-Please ensure to split the `data.csv` into **training** and **test** datasets before using it for model training or evaluation.
-
-## Guidance
-
-Like in a real life scenario, you are able to make your own choices and text treatment.
-Use the techniques you have learned and the common packages to process this data and classify the text.
-
-## Deliverables
-
-1. **Python Code:** Provide well-documented Python code that conducts the analysis.
-2. **Predictions:** A csv file in the same format as `validation_data.csv` but with the predicted labels (0 or 1)
-3. **Accuracy estimation:** Provide the teacher with your estimation of how your model will perform.
-4. **Presentation:** You will present your model in a 10-minute presentation. Your teacher will provide further instructions.
+## 🚀 Next Session Kick-off (The "First Thing")
+1.  **Sync to Cloud**: Upload the `project-nlp-challenge` folder to your Google Drive to path `/Project 2/project-nlp-challenge/`.
+2.  **Verify Models**: Ensure `models/vectorizer.joblib` is uploaded (This is the **Dictionary** ruleset for the model).
+3.  **Run Benchmarks**: Open `02_...`, `02.1_...`, and `02.2_...` in Google Colab, mount Drive, and run all cells to generate F1-Scores and PCA visualizations.
+4.  **Initiate Phase 3**: Deep Learning with Transformers.
