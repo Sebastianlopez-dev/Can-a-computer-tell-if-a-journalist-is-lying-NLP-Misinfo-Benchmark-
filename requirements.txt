@@ -1,36 +1,38 @@
 # ==========================================
-# Core 
+# Core Data Manipulation
 # ==========================================
-pandas>=2.0.0      # Main tool for data manipulation and analysis
-numpy>=1.26.0       # Essential for numerical operations and vector handling
-scikit-learn>=1.5.0 # Machines learning models (NB, LR), metrics (ROC/AUC), and Manifold (t-SNE)
-nltk>=3.8.0         # Natural Language Toolkit for preprocessing (Stopwords, Tokenization)
-joblib>=1.3.0       # For saving and loading our trained models (serialization)
+pandas>=2.0.0      # Main tool for data manipulation
+numpy>=1.26.0       # Essential for numerical operations
+scikit-learn>=1.5.0 # Traditional ML models, metrics, and manifold tools
+joblib>=1.3.0       # Final model serialization
 
 # ==========================================
-# Specialized NLP Models
+# Phase 1 & 2: Traditional NLP Evolution
 # ==========================================
-gensim>=4.3.0       # FOR PHASE 2.1: Training and managing Word2Vec embeddings
-spacy>=3.7.0        # Optional/FOR PHASE 3: Advanced NLP features and entities
+nltk>=3.8.0         # Preprocessing (Stopwords, Lemmatization)
+gensim>=4.3.0       # Semantic Word2Vec embeddings
+spacy>=3.7.0        # Optional advanced features
 
 # ==========================================
-# Visualization & Reporting
+# Phase 3: Advanced Transformer Pipeline
 # ==========================================
-matplotlib>=3.8.0   # Core plotting library for ROC curves and Confusion Matrices
-seaborn>=0.13.0     # Statistical data visualization (premium styled plots)
-umap-learn>=0.5.0   # Faster and more scalable dimension reduction for latent space visualization
+torch>=2.1.0          # Deep Learning backend
+transformers>=4.35.0  # HuggingFace hub and BERT/DistilBERT models
+datasets>=2.14.0      # Data handling for Transformers (REQUIRED)
+evaluate>=0.4.0       # HuggingFace metrics evaluation
+accelerate>=0.21.0    # GPU/Distributed training support
 
 # ==========================================
-# Transformer Models (PHASE 3)
+# Visualization & Interpretation
 # ==========================================
-transformers>=4.35.0  # HuggingFace Transformers for BERT fine-tuning
-torch>=2.1.0          # PyTorch backend for deep learning
-evaluate>=0.4.0       # Standard metrics evaluation library
-accelerate>=0.21.0    # For distributed training (GPU/TPU) in Colab
+matplotlib>=3.8.0   # Core plotting
+seaborn>=0.13.0     # Statistical visuals
+umap-learn>=0.5.0   # High-fidelity manifold projections (latent space)
 
 # ==========================================
-# Environment & Utilities
+# Utilities & Environment
 # ==========================================
-ipykernel           # Required for running these notebooks in Jupyter or Colab
-tqdm                # Adds smart progress bars to our processing loops
+ipykernel           # Jupyter/Colab runtime
+tqdm                # Progress indicators
+scipy>=1.10.0       # Sparse matrix support for metrics
 

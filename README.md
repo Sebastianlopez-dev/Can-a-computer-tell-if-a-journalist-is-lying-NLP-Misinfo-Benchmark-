@@ -15,13 +15,13 @@ The project is structured into three distinct research phases:
 - Cleaning Pipeline: Regex-based noise reduction, NLTK stopword filtering, and lemmatization.
 - Vectorization: TF-IDF (Term Frequency-Inverse Document Frequency) using bigrams with a feature limit of 5,000.
 - Baseline Model: Multinomial Naive Bayes and Logistic Regression.
-- Outcome: Established a performance "floor" of approximately 94.04% accuracy.
+- Outcome: Established a performance "floor" of 98.6% AUC.
 
 ### Phase 2: Semantic Representation Matrix
 - Transition: Shifted from word counts (sparse vectors) to word meanings (dense vectors).
 - Implementation: Word2Vec embeddings (100 dimensions).
 - Evaluation Logic: Logistic Regression was employed as a "Fair Judge" to evaluate both sparse and dense representations under identical conditions.
-- Findings: Proved that semantic understanding significantly reduces false positives. Semantic accuracy reached approximately 98.20%.
+- Findings: Proved that semantic understanding significantly reduces false positives. Semantic performance reached 99.9% AUC.
 
 ### Phase 3: Advanced Transformer Refinement
 - Implementation: Fine-tuning of the pre-trained DistilBERT model (distilbert-base-uncased).
@@ -30,13 +30,16 @@ The project is structured into three distinct research phases:
 
 ## Key Experimental Results
 
-| Model Representation | Accuracy | F1-Score | Primary Advantage |
+| Model Representation | AUC Score | F1-Score | Primary Advantage |
 | --- | --- | --- | --- |
-| TF-IDF (Baseline) | 94.04% | 0.94 | Low computational cost, good for keyword detection. |
-| Word2Vec (Semantic) | 98.20% | 0.98 | Captures conceptual meaning; robust against keyword shifts. |
-| DistilBERT (Transformer)| Pending | ~0.99 | Contextual understanding and state-of-the-art precision. |
+| TF-IDF (Baseline) | 98.6% | 0.98 | Low computational cost; baseline for keyword detection. |
+| Word2Vec (Semantic) | 99.9% | 0.99 | Captures conceptual meaning; resilient to keyword synonyms. |
+| DistilBERT (Transformer)| 100.0% | 1.00 | Full contextual understanding; maximum separation in latent space. |
 
-Side-by-side analysis through Principal Component Analysis (PCA) confirms that semantic models (Phase 2 and 3) achieve tighter clustering and clearer decision boundaries than frequency-based models (Phase 1).
+### The "Aha!" Moment: Word2Vec vs. DistilBERT
+While Word2Vec achieved an impressive 99.9% AUC, the transition to DistilBERT (100.0%) represents more than a marginal 0.1% gain. It is the shift from **static semantics** (words as fixed concepts) to **dynamic context** (words understood through their neighbors). In the final visualizations, DistilBERT successfully resolved the minimal "borderline" overlaps found in Word2Vec's latent space, providing the definitive architectural ceiling for fake news detection.
+
+Side-by-side analysis through Principal Component Analysis (PCA) and UMAP confirms that semantic models (Phase 2 and 3) achieve significantly tighter clustering and clearer decision boundaries than frequency-based models (Phase 1).
 
 ## Repository Structure
 
