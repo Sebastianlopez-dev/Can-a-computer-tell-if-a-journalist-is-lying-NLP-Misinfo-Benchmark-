@@ -6,6 +6,8 @@ models/
 
 # 🥗 Exclude Heavy Datasets (exceed GitHub's 100MB limit)
 dataset/*.csv
+!dataset/validation_results_bert.csv
+
 
 # 🧪 Python Environment Artifacts
 __pycache__/
