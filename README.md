@@ -1,71 +1,113 @@
-# Fake News Detection: An Evolutionary NLP Pipeline
+# Fake News Detection: NLP Representation Evolution
 
-This repository contains a comprehensive Natural Language Processing (NLP) framework designed to classify news articles as Real or Fake. Developed as a multi-stage project, it demonstrates an architectural evolution from statistical frequency-based models to state-of-the-art Transformer-based deep learning.
+## Objective
 
-## Project Description
+This project benchmarks the evolution of Natural Language Processing techniques for binary classification of news articles (Real: 1, Fake: 0). Using a dataset of approximately 40,000 articles, the study contrasts three representation paradigms: frequency-based (TF-IDF), semantic embeddings (Word2Vec), and contextual transformers (DistilBERT), demonstrating the performance gains at each architectural stage.
 
-The primary objective is the binary classification of news articles (Real: 1, Fake: 0) using a dataset of approximately 40,000 records. The project implements a side-by-side benchmarking strategy, contrasting traditional "Bag-of-Words" approaches with modern semantic embeddings to determine which representation captures the nuance of misinformation more effectively.
+## Project Overview
 
-## Methodology and Research Phases
+The dataset contains news articles with the following structure:
+- **label**: 0 if the news is fake, 1 if the news is real
+- **title**: The headline of the news article
+- **text**: The full content of the article
+- **subject**: The category or topic of the news
+- **date**: The publication date of the article
 
-The project is structured into three distinct research phases:
+Your task: Build a classifier to distinguish between real and fake news, then use it to predict labels for validation data.
 
-### Phase 1: Data Pre-processing and Statistical Baseline
-- Feature Engineering: Concatenation of article titles and text bodies to maximize semantic context.
-- Cleaning Pipeline: Regex-based noise reduction, NLTK stopword filtering, and lemmatization.
-- Vectorization: TF-IDF (Term Frequency-Inverse Document Frequency) using bigrams with a feature limit of 5,000.
-- Baseline Model: Multinomial Naive Bayes and Logistic Regression.
-- Outcome: Established a performance "floor" of approximately 94.04% accuracy.
+## Methodology
 
-### Phase 2: Semantic Representation Matrix
-- Transition: Shifted from word counts (sparse vectors) to word meanings (dense vectors).
-- Implementation: Word2Vec embeddings (100 dimensions).
-- Evaluation Logic: Logistic Regression was employed as a "Fair Judge" to evaluate both sparse and dense representations under identical conditions.
-- Findings: Proved that semantic understanding significantly reduces false positives. Semantic accuracy reached approximately 98.20%.
+The project unfolds across three phases, each advancing the mathematical representation of text:
 
-### Phase 3: Advanced Transformer Refinement
-- Implementation: Fine-tuning of the pre-trained DistilBERT model (distilbert-base-uncased).
-- Advantage: Utilized self-attention mechanisms to understand contextual word relationships rather than static definitions.
-- Visualization: Dimensionality reduction via PCA, t-SNE, and UMAP to visualize the latent space separation between Real and Fake news clusters.
+### Phase 1: Frequency-Based Baseline
+- **Text representation**: TF-IDF with bigrams (5,000 features)
+- **Data preparation**: Title-text concatenation, regex cleaning, lemmatization, stopword removal
+- **Class balancing**: Random undersampling to 50/50 distribution
+- **Models**: Multinomial Naive Bayes and Logistic Regression
+- **Result**: 94.04% accuracy (performance floor)
 
-## Key Experimental Results
+### Phase 2: Semantic Representation
+- **Text representation**: Word2Vec embeddings (100 dimensions, dense vectors)
+- **Model**: Logistic Regression (applied to both sparse and dense representations for fair comparison)
+- **Analysis**: Dimensionality reduction via PCA to visualize class separation
+- **Result**: 98.20% accuracy; improved robustness against keyword variation
 
-| Model Representation | Accuracy | F1-Score | Primary Advantage |
-| --- | --- | --- | --- |
-| TF-IDF (Baseline) | 94.04% | 0.94 | Low computational cost, good for keyword detection. |
-| Word2Vec (Semantic) | 98.20% | 0.98 | Captures conceptual meaning; robust against keyword shifts. |
-| DistilBERT (Transformer)| 99.9% | 0.99 | Contextual understanding and state-of-the-art precision. |
+### Phase 3: Contextual Transformers
+- **Architecture**: Fine-tuned DistilBERT (distilbert-base-uncased)
+- **Mechanism**: Self-attention for contextual word relationships
+- **Evaluation**: UMAP visualization of latent space; comparative metrics against Phases 1 and 2
+- **Result**: 99.9% accuracy (near-perfect classification with superior generalization)
 
-Side-by-side analysis through Principal Component Analysis (PCA) confirms that semantic models (Phase 2 and 3) achieve tighter clustering and clearer decision boundaries than frequency-based models (Phase 1).
+## Key Results
+
+| Representation | Model | Accuracy | F1-Score | Key Insight |
+|---|---|---|---|---|
+| Frequency | Naive Bayes (TF-IDF) | 94.04% | 0.94 | Fast baseline; keyword-dependent |
+| Semantic | Word2Vec + Logistic Regression | 98.20% | 0.98 | Captures conceptual relationships |
+| Contextual | DistilBERT (fine-tuned) | 99.9% | 0.99 | Understands linguistic nuance and context |
+
+PCA and UMAP analyses confirm that semantic and transformer models achieve tighter clustering with clearer decision boundaries compared to frequency-based approaches.
 
 ## Repository Structure
 
-- 01_data_cleaning_and_embeddings.ipynb: Data ingestion, ETL, and initial vectorization scripts.
-- 02_nb_baseline_classifier.ipynb: Baseline TF-IDF implementation with Naive Bayes.
-- 02.1_word2vec_classifier.ipynb: Semantic modeling using Word2Vec embeddings.
-- 02.2_model_comparison_and_test.ipynb: Comprehensive benchmarking, metric visualization, and PCA analysis.
-- 03_advanced_transformer_refinement.ipynb: Transformer fine-tuning (DistilBERT) and latent space evaluation.
-- 03.1_models_comparation_v2.ipynb: Advanced model comparison and statistical validation.
-- summary/: Technical reports and presentation notes for each project phase.
-- models/: Serialized model weights and vectorizers (.joblib and PyTorch state_dicts).
+```
+├── 01_data_cleaning_and_embeddings.ipynb          # ETL and initial vectorization
+├── 02_nb_baseline_classifier.ipynb                # TF-IDF baseline with Naive Bayes
+├── 02.1_word2vec_classifier.ipynb                 # Word2Vec embeddings and training
+├── 02.2_model_comparison_and_test.ipynb           # Comparative metrics and PCA visualization
+├── 03_advanced_transformer_refinement.ipynb       # DistilBERT fine-tuning and evaluation
+├── 03.1_models_comparison_v2.ipynb                # Advanced model evaluation and UMAP visualization
+├── dataset/
+│   ├── data.csv                                    # Training dataset (~40,000 articles)
+│   └── validation_data.csv                         # Validation set for final predictions
+├── models/                                         # Serialized weights (joblib, PyTorch state_dicts)
+│   ├── tfidf_vectorizer.joblib
+│   ├── word2vec_model.joblib
+│   ├── nb_classifier.joblib
+│   ├── w2v_logistic_classifier.joblib
+│   └── distilbert_classifier/                      # DistilBERT model directory
+└── summary/                                        # Phase reports and presentation materials
+    ├── phase-1.md
+    ├── phase-2.md
+    ├── phase-3.md
+    ├── presentation_notes.md
+    └── NLP_Project_SebastianLopez_ironhack-AI.pptx
+```
 
-## Installation and Technical Environment
+## Setup and Reproduction
 
-Recommended Environment: Python 3.10.x
+**Environment**: Python 3.10.x with PyTorch and Hugging Face Transformers
 
-To reproduce the study:
-1. Clone the repository.
-2. Initialize the environment:
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
    ```bash
-   pip install -r project-nlp-challenge/requirements.txt
+   pip install -r requirements.txt
    ```
-3. Run notebooks sequentially (01 through 03.1).
+3. Execute notebooks sequentially (01 through 03.1)
 
-## Multi-Environment Compatibility
+### Generating Predictions
 
-The notebooks utilize a unified BASE_PATH logic to ensure seamless portability between local workstations and Google Colab environments (via Google Drive mounting). All serialized components (vectorizers and dictionaries) are persisted to ensure feature consistency across training and inference stages.
+After training all three phases:
+1. Load the trained models from the `models/` directory
+2. Apply each model to `dataset/validation_data.csv`
+3. Generate predictions in the same format as the original validation file (no extra columns, respect column separators)
+
+**Portability**: The project uses unified path logic to support both local execution and Google Colab (with Google Drive mounting). Serialized vectorizers and models ensure consistent feature encoding across training and inference.
+
+## Model Comparison Summary
+
+The progression demonstrates clear performance improvements as we advance from static to contextual representations:
+
+- **Phase 1** establishes the baseline and verifies the dataset quality
+- **Phase 2** quantifies the gain from capturing semantic relationships
+- **Phase 3** achieves near-perfect classification through contextual understanding
+
+All phases employ stratified 80/20 train-test splits to maintain class distribution integrity throughout evaluation.
 
 ---
-Project Author: Basstian Lopez
-Institution: Ironhack Data Analytics
-Date: March 2026
+
+**Author**: Basstian Lopez
+**Institution**: Ironhack Data Analytics
+**Date**: March 2026
