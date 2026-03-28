@@ -50,11 +50,11 @@
 
 ## Slide 5: The Tournament of Models - Results (1:30)
 *   **Definitive Metrics**:
-    *   **Baseline (NB)**: 98.6% AUC - The performance floor.
-    *   **Semantic (W2V)**: 99.9% AUC - The limit of static concepts.
-    *   **Transformer (BERT)**: 100.0% AUC - The contextual ceiling.
+    *   **Baseline (NB)**: 94% AUC - The performance floor.
+    *   **Semantic (W2V)**: 98% AUC - The limit of static concepts.
+    *   **Transformer (BERT)**: 99.9% AUC - The contextual ceiling.
 *   **Speaker Notes**:
-    *   This is the final verdict. While Word2Vec reached a near-perfect 99.9%, DistilBERT provided the definitive 100.0%.
+    *   This is the final verdict. While Word2Vec reached a near-perfect 98.0, DistilBERT provided the definitive 99.9%.
     *   This 0.1% gain is a qualitative leap: it represents the move from understanding words as static entities to understanding the flow and nuance of the entire "linguistic fabric."
     *   The model isn't just counting keywords; it's identifying the subtle patterns used in sophisticated misinformation.
 
